@@ -1,0 +1,6 @@
+{
+  "tasks": {
+    "dev": "deno run --allow-all src/main.ts",
+    "test": "deno run --allow-all src/test.ts"
+  }
+}
