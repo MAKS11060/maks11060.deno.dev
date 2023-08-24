@@ -7,6 +7,7 @@ Deno.serve((req: Request, info) => {
   const uri = new URL(req.url)
 
   if (req.headers.has('upgrade') && req.headers.get('upgrade') === 'websocket') {
+    console.log(req.method)
     const {socket, response} = Deno.upgradeWebSocket(req)
 
     let pingCounter = 0
