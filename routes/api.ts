@@ -3,11 +3,12 @@ import {Hono, bcrypt} from "../deps.ts"
 const app = new Hono()
 export {app as api}
 
-const salt = await bcrypt.genSalt(10)
+const salt = await bcrypt.genSaltSync(10)
 
 app.get('/b/test', async c => {
-  c.json({
+  console.log(salt)
+  return c.json({
     salt,
-    hash: await bcrypt.hash(c.req.query('p') || '', salt)
+    hash: await bcrypt.hashSync(c.req.query('p') || '', salt)
   })
 })
