@@ -1,4 +1,4 @@
-import {Hono, bcrypt, useSocket} from "../deps.ts"
+import {Hono, useSocket} from "../deps.ts"
 
 const app = new Hono()
 export {app as api}
