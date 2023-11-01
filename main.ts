@@ -1,9 +1,35 @@
-import {Hono, logger} from "./deps.ts"
+import {Hono, hMiddleware, useSocket} from "./deps.ts"
 import {api} from "./routes/api.ts"
 
 const app = new Hono()
 
-app.use('*', logger())
+app.use('*', hMiddleware.logger())
+app.use('*', hMiddleware.serveStatic({root: 'public'}))
+
+app.use('/ws', useSocket(socket => {
+  socket.onopen = e => {
+    const time = Date.now()
+    // sockets.set(socket, {time})
+    socket.send(JSON.stringify({
+      type: 'ping',
+      time,
+    }))
+  }
+  socket.onclose = e => console.log('[ws] close')
+  socket.onmessage = e => {
+    // console.log(e.data)
+    const data = JSON.parse(e.data)
+    if (data.type === 'ping') {
+      console.log(data.time - Date.now())
+      socket.send(JSON.stringify({
+        type: 'time',
+        offset: data.time - Date.now()
+      }))
+    }
+  }
+
+}))
+
 
 app.route('/', api)
 
