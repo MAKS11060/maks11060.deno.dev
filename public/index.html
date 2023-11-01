@@ -12,9 +12,11 @@
       const data = JSON.parse(e.data)
       console.log(data)
       if (data.type === 'ping') ws.send(JSON.stringify({type: 'ping', time: Date.now()}))
+      if (data.type === 'time') document.querySelector('#time').textContent = data.offset
     }
   </script>
 </head>
 <body>
+<span id="time">-</span>
 </body>
 </html>
