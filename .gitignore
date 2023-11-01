@@ -1,11 +1,2 @@
-### Deno template
-/.idea/
-/.vscode/
-
-/node_modules
-
+.vscode
 .env
-*.orig
-*.pyc
-*.swp
-
