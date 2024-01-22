@@ -1,12 +1,11 @@
 import {Hono} from 'hono'
-import {kv} from '../database/kv.ts'
-import {ulid} from '../../deps.ts'
 import apiDev from './apiDev.ts'
 
 const app = new Hono().basePath('/api')
 
 app.route('/', apiDev)
 
+/*
 type User = {username: string; email: string}
 
 const userById = (id: string) => ['user', id]
@@ -48,6 +47,7 @@ app.get('/kv', async (c) => {
 
   return c.json({kv: res})
 })
+ */
 
 // app.use(
 //   '/ws',
