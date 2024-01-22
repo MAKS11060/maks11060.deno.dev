@@ -1,4 +1,4 @@
-#!/usr/bin/env -S deno run --allow-all
+#!/usr/bin/env -S deno run -A
 
 const socket = new WebSocket('wss://maks11060.deno.dev/ws')
 // const socket = new WebSocket('ws://localhost:8000/ws')

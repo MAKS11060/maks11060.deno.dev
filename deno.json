@@ -1,7 +1,25 @@
 {
+  "lock": false,
   "tasks": {
-    "dev": "deno run -A --unstable --watch main.ts",
-    "start": "deno run -A --unstable main.ts",
-    "deploy": "deployctl deploy --prod -p=oauth2-maks11060 main.ts"
-  }
+    "dev": "deno run -A --unstable --unstable-hmr main.ts",
+    "devr": "deno run -Ar --unstable --unstable-hmr main.ts",
+    "start": "deno run -A --unstable main.ts"
+  },
+  "imports": {
+    "hono": "npm:hono",
+    "hono/": "npm:hono/",
+    "hono/cors": "npm:hono/cors",
+    "hono/deno": "npm:hono/deno",
+    "hono/logger": "npm:hono/logger",
+    "hono/cookie": "npm:hono/cookie",
+    "hono/factory": "npm:hono/factory",
+    "hono/basic-auth": "npm:hono/basic-auth",
+    "hono/http-exception": "npm:hono/http-exception",
+    "hono/secure-headers": "npm:hono/secure-headers",
+    "zod": "npm:zod",
+    "zValidator": "npm:@hono/zod-validator"
+  },
+  "exclude": [
+    "web"
+  ]
 }

@@ -1,19 +1,17 @@
-import {Hono, hMiddleware, useSocket} from "./deps.ts"
-import {api} from "./routes/api.ts"
+import './deps.ts'
+import {Hono} from 'hono'
+import api from './src/api/api.ts'
+import web from './web.ts'
 
 const app = new Hono()
 
-app.use('*', hMiddleware.logger())
-
 app.route('/', api)
-
-app.use('*', hMiddleware.serveStatic({root: './public'}))
-
-
-Deno.serve({port: 80}, (r, info) => app.fetch(r, {info}))
+app.route('/', web)
 
 if (Deno.env.has('KEY') && Deno.env.has('CERT')) {
-  const key = Deno.readTextFileSync(Deno.env.get('KEY')!)
+  const key = Deno.readTextFileSync(Deno.env.get('KEY')!).replaceAll('EC ', '') // for compatibility
   const cert = Deno.readTextFileSync(Deno.env.get('CERT')!)
-  Deno.serve({cert, key, port: 443}, (r, info) => app.fetch(r, {info}))
+  Deno.serve({key, cert, port: 443}, (r, info) => app.fetch(r, {info}))
 }
+
+Deno.serve({port: 80}, (r, info) => app.fetch(r, {info}))
